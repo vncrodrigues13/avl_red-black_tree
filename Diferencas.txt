@@ -1,0 +1,31 @@
+ARVORES AVL VS ARVORES RUBRO-NEGRAS
+
+
+
+A árvore AVL é que tem o maior grau de balanceamento (tendo em vista que em toda inserção e remoção ela 
+verifica o balanceamento), ou seja, os mecanismos de busca nela são mais otimizados, 
+é um fator importante para a seleção de qual dessas estruturas você poderia optar para a tua aplicação.
+
+
+A árvore rubro-negra tem um grau de balanceamento um pouco menor 
+
+
+
+Na prática a AVl é mais rápida nas operações de busca e mais lenta nas operações de remoção e inserção. 
+A árvore AVL é mais balanceada do que a árvore Rubro-Negra, o que acelera o processo de busca.
+ Maior custo na operação de inserção e inserção: No pior caso a árvore uma operação pode exigir "O(logN)" 
+ na árvore AVL, mas apenas 3 rotações na árvore Rubro-Regra (gasta mais operações na Árvore AVL para 
+ manter ela "mais balanceada").
+
+
+Se a sua aplicação usufrue mais a operação de busca, é melhor optar por AVL.
+
+Se a sua aplicação usufrue mais a operação de inserção/remoção, é melhor optar por Rubro-Negra.
+
+Java: java.util.TreeMap ou java.util.TreeSet
+
+
+
+
+Caso 1: O caso em que toda inserção vai ser vermelha, ao menos que o no seja raiz;
+Caso 2:     
