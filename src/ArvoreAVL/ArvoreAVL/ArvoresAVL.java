@@ -22,9 +22,10 @@ public class ArvoresAVL<T extends Comparable<T>> {
     }
 
     private NoArvoreAVL<T> treeAdd(NoArvoreAVL<T> raiz, T element) {
-        // TODO need to check the side of the comparable value
-        // TODO the highier values are going to the left side, when they should go to right
-        
+        /*
+         * Vou ficar na recursão até encontrar algum nó vázio, ou seja, significa que eu
+         * vou poder adicionar o elemento naquela posição
+         */
 
         if (raiz == null) {
             System.out.println("Added");
@@ -112,6 +113,7 @@ public class ArvoresAVL<T extends Comparable<T>> {
     }
 
     private NoArvoreAVL<T> treeRemove(NoArvoreAVL<T> raiz, T element) throws NotExistException {
+        //TODO o pai precisa apontar para Null tbm
         if (raiz == null) {
             throw new NotExistException();
         }
@@ -119,20 +121,22 @@ public class ArvoresAVL<T extends Comparable<T>> {
         int comparableFactor = element.compareTo(raiz.getValor());
 
         if (comparableFactor > 0) {
-            // se a comparacao entre a raiz e o elemento for menor que 0, siginifica que o valor esta a sua direita
+            // se a comparacao entre a raiz e o elemento for menor que 0, siginifica que o
+            // valor esta a sua direita
 
             if (raiz.getDireita().compareTo(element) == 0) {
                 // caso o valor a ser exlcuido seja o proximo elemento a direita
-                raiz.setDireita(removerNo(raiz.getEsquerda())); 
+                raiz.setDireita(removerNo(raiz.getEsquerda()));
                 // remove corretamente o No
             }
 
             raiz.setDireita(treeRemove(raiz.getDireita(), element));
         } else if (comparableFactor < 0) {
-            // se a comparacao entre a raiz e o elemento for menor que 0, siginifica que o valor esta a sua esquerda
+            // se a comparacao entre a raiz e o elemento for menor que 0, siginifica que o
+            // valor esta a sua esquerda
             if (raiz.getEsquerda().compareTo(element) == 0) {
                 // caso o valor a ser exlcuido seja o proximo elemento a esquerda
-                raiz.setEsquerda(removerNo(raiz.getEsquerda())); 
+                raiz.setEsquerda(removerNo(raiz.getEsquerda()));
                 // remove corretamente o No
             }
 
@@ -145,16 +149,22 @@ public class ArvoresAVL<T extends Comparable<T>> {
         return raiz;
     }
 
-    private NoArvoreAVL<T> removerNo(NoArvoreAVL<T> raiz) {
-        if (raiz.numeroDeFilhos() > 1) {
-            return new NoArvoreAVL<T>(raiz.getEsquerda().getValor());
+    private NoArvoreAVL<T> removerNo(NoArvoreAVL<T> raiz) throws NotExistException {
+        if (raiz.numeroDeFilhos() == 2) {
+            // caso o no tenha dois filhos
+            NoArvoreAVL<T> valor = getMaximoValor(raiz.getEsquerda());
+            treeRemove(this.raiz, valor.getValor());
+            return valor;
+
         } else if (raiz.numeroDeFilhos() == 1) {
+            // caso o no tenha um filho
             if (raiz.getDireita() != null) {
                 return new NoArvoreAVL<T>(raiz.getDireita().getValor());
             } else {
                 return new NoArvoreAVL<T>(raiz.getEsquerda().getValor());
             }
         } else {
+            // caso n tenha filho, apenas fica null no lugar
             return null;
         }
     }
@@ -184,6 +194,14 @@ public class ArvoresAVL<T extends Comparable<T>> {
             // se o valor do fator de comparacao for igual a 0, significa que ele encontrou
             // o elemento
             // entao ele retorna
+            return raiz;
+        }
+    }
+
+    private NoArvoreAVL<T> getMaximoValor(NoArvoreAVL<T> raiz){
+        if (raiz.getDireita() != null){
+            return getMaximoValor(raiz.getDireita());
+        }else{
             return raiz;
         }
     }

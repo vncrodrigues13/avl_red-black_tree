@@ -8,7 +8,7 @@ public class NoArvoreRB<T extends Comparable<T>> implements Comparable<T>{
     private NoArvoreRB<T> pai;
     private NoArvoreRB<T> esquerda;
     private NoArvoreRB<T> direita;
-    private boolean vermelho;
+    private boolean vermelho; // true = vermelho; false = preto
 
     public NoArvoreRB(NoArvoreRB<T> pai,T valor){
         this.pai = pai;
@@ -104,6 +104,14 @@ public class NoArvoreRB<T extends Comparable<T>> implements Comparable<T>{
         }
     }
 
+    public void removerDireita(){
+        this.direita = null;
+    }
+
+    public void removerEsquerda(){
+        this.esquerda = null;
+    }
+
     @Override
     public NoArvoreRB<T> clone() {
         NoArvoreRB<T> novo = new NoArvoreRB<T>(valor);
@@ -113,12 +121,17 @@ public class NoArvoreRB<T extends Comparable<T>> implements Comparable<T>{
     
 
     @Override
-    public boolean equals (Object element){
-        return this.valor.equals(element);
+    public boolean equals(T element){
+        return element.compareTo(this.valor) == 0;
     }
 
     @Override
     public int compareTo(T o) {
         return this.valor.compareTo(o);
+    }
+
+    @Override
+    public String toString(){
+        return this.valor.toString() + " -  "+this.vermelho;
     }
 }
